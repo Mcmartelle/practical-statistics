@@ -784,11 +784,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.ab.Q === region.ai.Q)
+	if (region.aN.aq === region.a0.aq)
 	{
-		return 'on line ' + region.ab.Q;
+		return 'on line ' + region.aN.aq;
 	}
-	return 'on lines ' + region.ab.Q + ' through ' + region.ai.Q;
+	return 'on lines ' + region.aN.aq + ' through ' + region.a0.aq;
 }
 
 
@@ -1857,9 +1857,9 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.a1,
-		impl.a9,
-		impl.a8,
+		impl.cd,
+		impl.cF,
+		impl.cB,
 		function() { return function() {} }
 	);
 });
@@ -2719,9 +2719,9 @@ var _VirtualDom_mapEventTuple = F2(function(func, tuple)
 var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
-		C: func(record.C),
-		ac: record.ac,
-		_: record._
+		T: func(record.T),
+		aO: record.aO,
+		aL: record.aL
 	}
 });
 
@@ -2989,11 +2989,11 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 		// 3 = Custom
 
 		var value = result.a;
-		var message = !tag ? value : tag < 3 ? value.a : value.C;
-		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.ac;
+		var message = !tag ? value : tag < 3 ? value.a : value.T;
+		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.aO;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
-			(tag == 2 ? value.b : tag == 3 && value._) && event.preventDefault(),
+			(tag == 2 ? value.b : tag == 3 && value.aL) && event.preventDefault(),
 			eventNode
 		);
 		var tagger;
@@ -3943,11 +3943,11 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.a1,
-		impl.a9,
-		impl.a8,
+		impl.cd,
+		impl.cF,
+		impl.cB,
 		function(sendToApp, initialModel) {
-			var view = impl.ba;
+			var view = impl.cG;
 			/**/
 			var domNode = args['node'];
 			//*/
@@ -3979,12 +3979,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.a1,
-		impl.a9,
-		impl.a8,
+		impl.cd,
+		impl.cF,
+		impl.cB,
 		function(sendToApp, initialModel) {
-			var divertHrefToApp = impl.aa && impl.aa(sendToApp)
-			var view = impl.ba;
+			var divertHrefToApp = impl.aM && impl.aM(sendToApp)
+			var view = impl.cG;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
 			var currNode = _VirtualDom_virtualize(bodyNode);
@@ -3992,12 +3992,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 			{
 				_VirtualDom_divertHrefToApp = divertHrefToApp;
 				var doc = view(model);
-				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.aV);
+				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.bX);
 				var patches = _VirtualDom_diff(currNode, nextNode);
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.n) && (_VirtualDom_doc.title = title = doc.n);
+				(title !== doc.w) && (_VirtualDom_doc.title = title = doc.w);
 			});
 		}
 	);
@@ -4053,12 +4053,12 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.a4;
-	var onUrlRequest = impl.a5;
+	var onUrlChange = impl.cs;
+	var onUrlRequest = impl.ct;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
-		aa: function(sendToApp)
+		aM: function(sendToApp)
 		{
 			key.a = sendToApp;
 			_Browser_window.addEventListener('popstate', key);
@@ -4074,9 +4074,9 @@ function _Browser_application(impl)
 					var next = $elm$url$Url$fromString(href).a;
 					sendToApp(onUrlRequest(
 						(next
-							&& curr.aD === next.aD
-							&& curr.aq === next.aq
-							&& curr.az.a === next.az.a
+							&& curr.bv === next.bv
+							&& curr.bb === next.bb
+							&& curr.br.a === next.br.a
 						)
 							? $elm$browser$Browser$Internal(next)
 							: $elm$browser$Browser$External(href)
@@ -4084,13 +4084,13 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		a1: function(flags)
+		cd: function(flags)
 		{
-			return A3(impl.a1, flags, _Browser_getUrl(), key);
+			return A3(impl.cd, flags, _Browser_getUrl(), key);
 		},
-		ba: impl.ba,
-		a9: impl.a9,
-		a8: impl.a8
+		cG: impl.cG,
+		cF: impl.cF,
+		cB: impl.cB
 	});
 }
 
@@ -4156,17 +4156,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { a$: 'hidden', aW: 'visibilitychange' }
+		? { ca: 'hidden', b_: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { a$: 'mozHidden', aW: 'mozvisibilitychange' }
+		? { ca: 'mozHidden', b_: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { a$: 'msHidden', aW: 'msvisibilitychange' }
+		? { ca: 'msHidden', b_: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { a$: 'webkitHidden', aW: 'webkitvisibilitychange' }
-		: { a$: 'hidden', aW: 'visibilitychange' };
+		? { ca: 'webkitHidden', b_: 'webkitvisibilitychange' }
+		: { ca: 'hidden', b_: 'visibilitychange' };
 }
 
 
@@ -4247,12 +4247,12 @@ var _Browser_call = F2(function(functionName, id)
 function _Browser_getViewport()
 {
 	return {
-		aJ: _Browser_getScene(),
-		aP: {
-			aR: _Browser_window.pageXOffset,
-			aS: _Browser_window.pageYOffset,
-			aQ: _Browser_doc.documentElement.clientWidth,
-			ao: _Browser_doc.documentElement.clientHeight
+		bC: _Browser_getScene(),
+		bN: {
+			bQ: _Browser_window.pageXOffset,
+			bR: _Browser_window.pageYOffset,
+			bP: _Browser_doc.documentElement.clientWidth,
+			a9: _Browser_doc.documentElement.clientHeight
 		}
 	};
 }
@@ -4262,8 +4262,8 @@ function _Browser_getScene()
 	var body = _Browser_doc.body;
 	var elem = _Browser_doc.documentElement;
 	return {
-		aQ: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
-		ao: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
+		bP: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
+		a9: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
 
@@ -4286,15 +4286,15 @@ function _Browser_getViewportOf(id)
 	return _Browser_withNode(id, function(node)
 	{
 		return {
-			aJ: {
-				aQ: node.scrollWidth,
-				ao: node.scrollHeight
+			bC: {
+				bP: node.scrollWidth,
+				a9: node.scrollHeight
 			},
-			aP: {
-				aR: node.scrollLeft,
-				aS: node.scrollTop,
-				aQ: node.clientWidth,
-				ao: node.clientHeight
+			bN: {
+				bQ: node.scrollLeft,
+				bR: node.scrollTop,
+				bP: node.clientWidth,
+				a9: node.clientHeight
 			}
 		};
 	});
@@ -4324,18 +4324,18 @@ function _Browser_getElement(id)
 		var x = _Browser_window.pageXOffset;
 		var y = _Browser_window.pageYOffset;
 		return {
-			aJ: _Browser_getScene(),
-			aP: {
-				aR: x,
-				aS: y,
-				aQ: _Browser_doc.documentElement.clientWidth,
-				ao: _Browser_doc.documentElement.clientHeight
+			bC: _Browser_getScene(),
+			bN: {
+				bQ: x,
+				bR: y,
+				bP: _Browser_doc.documentElement.clientWidth,
+				a9: _Browser_doc.documentElement.clientHeight
 			},
-			aZ: {
-				aR: x + rect.left,
-				aS: y + rect.top,
-				aQ: rect.width,
-				ao: rect.height
+			b4: {
+				bQ: x + rect.left,
+				bR: y + rect.top,
+				bP: rect.width,
+				a9: rect.height
 			}
 		};
 	});
@@ -4776,25 +4776,25 @@ var $elm$core$Array$treeFromBuilder = F2(
 	});
 var $elm$core$Array$builderToArray = F2(
 	function (reverseNodeList, builder) {
-		if (!builder.g) {
+		if (!builder.l) {
 			return A4(
 				$elm$core$Array$Array_elm_builtin,
-				$elm$core$Elm$JsArray$length(builder.i),
+				$elm$core$Elm$JsArray$length(builder.o),
 				$elm$core$Array$shiftStep,
 				$elm$core$Elm$JsArray$empty,
-				builder.i);
+				builder.o);
 		} else {
-			var treeLen = builder.g * $elm$core$Array$branchFactor;
+			var treeLen = builder.l * $elm$core$Array$branchFactor;
 			var depth = $elm$core$Basics$floor(
 				A2($elm$core$Basics$logBase, $elm$core$Array$branchFactor, treeLen - 1));
-			var correctNodeList = reverseNodeList ? $elm$core$List$reverse(builder.j) : builder.j;
-			var tree = A2($elm$core$Array$treeFromBuilder, correctNodeList, builder.g);
+			var correctNodeList = reverseNodeList ? $elm$core$List$reverse(builder.p) : builder.p;
+			var tree = A2($elm$core$Array$treeFromBuilder, correctNodeList, builder.l);
 			return A4(
 				$elm$core$Array$Array_elm_builtin,
-				$elm$core$Elm$JsArray$length(builder.i) + treeLen,
+				$elm$core$Elm$JsArray$length(builder.o) + treeLen,
 				A2($elm$core$Basics$max, 5, depth * $elm$core$Array$shiftStep),
 				tree,
-				builder.i);
+				builder.o);
 		}
 	});
 var $elm$core$Basics$idiv = _Basics_idiv;
@@ -4807,7 +4807,7 @@ var $elm$core$Array$initializeHelp = F5(
 				return A2(
 					$elm$core$Array$builderToArray,
 					false,
-					{j: nodeList, g: (len / $elm$core$Array$branchFactor) | 0, i: tail});
+					{p: nodeList, l: (len / $elm$core$Array$branchFactor) | 0, o: tail});
 			} else {
 				var leaf = $elm$core$Array$Leaf(
 					A3($elm$core$Elm$JsArray$initialize, $elm$core$Array$branchFactor, fromIndex, fn));
@@ -4874,7 +4874,7 @@ var $elm$url$Url$Http = 0;
 var $elm$url$Url$Https = 1;
 var $elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {an: fragment, aq: host, ax: path, az: port_, aD: protocol, aE: query};
+		return {a5: fragment, bb: host, bp: path, br: port_, bv: protocol, bw: query};
 	});
 var $elm$core$String$contains = _String_contains;
 var $elm$core$String$length = _String_length;
@@ -5229,44 +5229,44 @@ var $author$project$Main$init = function (_v0) {
 	var initOCustomSamples = A3($author$project$Main$chanceToSamples, oCustomChance, initialNumerator, initialDenominator);
 	return _Utils_Tuple2(
 		{
-			p: {
-				c: 0,
-				m: $elm$core$String$fromFloat(initialDenominator),
-				f: initialDenominator
+			z: {
+				d: 0,
+				v: $elm$core$String$fromFloat(initialDenominator),
+				j: initialDenominator
 			},
-			aj: _List_Nil,
-			o: {
-				c: 0,
-				m: $elm$core$String$fromFloat(initialNumerator),
-				f: initialNumerator
+			a1: _List_Nil,
+			x: {
+				d: 0,
+				v: $elm$core$String$fromFloat(initialNumerator),
+				j: initialNumerator
 			},
-			u: {
-				y: oCustomChance,
-				c: $author$project$Main$Good,
-				k: initOCustomSamples,
-				R: initOCustomSamplesExact,
-				S: initOCustomSamplesRoundUp,
-				n: $author$project$Main$percentToTitle(initialPercent)
+			H: {
+				O: oCustomChance,
+				d: $author$project$Main$Good,
+				q: initOCustomSamples,
+				as: initOCustomSamplesExact,
+				at: initOCustomSamplesRoundUp,
+				w: $author$project$Main$percentToTitle(initialPercent)
 			},
-			D: {
-				c: 0,
-				m: $elm$core$String$fromFloat(initialPercent),
-				f: initialPercent
+			U: {
+				d: 0,
+				v: $elm$core$String$fromFloat(initialPercent),
+				j: initialPercent
 			},
-			v: {
-				y: initSCustomChance,
-				O: initSCustomChanceExact,
-				P: initSCustomChanceRounded,
-				c: $author$project$Main$Good,
-				k: initialSamples,
-				n: $author$project$Main$samplesToTitle(initialSamples)
+			J: {
+				O: initSCustomChance,
+				am: initSCustomChanceExact,
+				an: initSCustomChanceRounded,
+				d: $author$project$Main$Good,
+				q: initialSamples,
+				w: $author$project$Main$samplesToTitle(initialSamples)
 			},
-			k: {
-				c: 0,
-				m: $elm$core$String$fromFloat(initialSamples),
-				f: initialSamples
+			q: {
+				d: 0,
+				v: $elm$core$String$fromFloat(initialSamples),
+				j: initialSamples
 			},
-			T: initStatPercent
+			au: initStatPercent
 		},
 		$elm$core$Platform$Cmd$none);
 };
@@ -5283,10 +5283,10 @@ var $author$project$Main$calcOCustom = F4(
 		var samples = A3($author$project$Main$chanceToSamples, chance, nume, deno);
 		var roundup = A3($author$project$Main$chanceToSamplesRoundUp, chance, nume, deno);
 		var exact = A3($author$project$Main$chanceToSamplesExact, chance, nume, deno);
-		var error = (exact && ((chance === 1) && ($elm$core$String$length(oCus.n) > 6))) ? $author$project$Main$Bad('The input chance of occurrence is too close to 100% for a 64 bit floating point number to quantify') : ((exact && (chance === 1)) ? $author$project$Main$Bad('A 100% chance of occurrence would require an infinite sample size') : $author$project$Main$Good);
+		var error = (exact && ((chance === 1) && ($elm$core$String$length(oCus.w) > 6))) ? $author$project$Main$Bad('The input chance of occurrence is too close to 100% for a 64 bit floating point number to quantify') : ((exact && (chance === 1)) ? $author$project$Main$Bad('A 100% chance of occurrence would require an infinite sample size') : $author$project$Main$Good);
 		return _Utils_update(
 			oCus,
-			{y: chance, c: error, k: samples, R: exact, S: roundup});
+			{O: chance, d: error, q: samples, as: exact, at: roundup});
 	});
 var $author$project$Main$calcSCustom = F4(
 	function (sCus, samples, nume, deno) {
@@ -5296,7 +5296,7 @@ var $author$project$Main$calcSCustom = F4(
 		var error = (exact && (chance === '100')) ? $author$project$Main$Bad('The calculated chance of occurrence is too close to 100% for a 64 bit floating point number to quantify') : $author$project$Main$Good;
 		return _Utils_update(
 			sCus,
-			{y: chance, O: exact, P: rounded, c: error, k: samples});
+			{O: chance, am: exact, an: rounded, d: error, q: samples});
 	});
 var $author$project$Main$BelowAllowedRange = 3;
 var $author$project$Main$EmptyInput = 1;
@@ -5360,29 +5360,29 @@ var $author$project$Main$update = F2(
 					}
 				}();
 				var newInputNumerator = newNumber;
-				var denominator = model.p;
-				var denominatorError = A2($author$project$Main$getDenominatorError, denominator.m, numeratorVal);
-				var newInputError = A2($author$project$Main$getNumeratorError, newNumber, denominator.f);
-				var newStatPercent = $elm$core$String$fromFloat((numeratorVal / denominator.f) * 100);
-				var oCustom = A4($author$project$Main$calcOCustom, model.u, model.u.y, numeratorVal, denominator.f);
-				var sCustom = A4($author$project$Main$calcSCustom, model.v, model.v.k, numeratorVal, denominator.f);
+				var denominator = model.z;
+				var denominatorError = A2($author$project$Main$getDenominatorError, denominator.v, numeratorVal);
+				var newInputError = A2($author$project$Main$getNumeratorError, newNumber, denominator.j);
+				var newStatPercent = $elm$core$String$fromFloat((numeratorVal / denominator.j) * 100);
+				var oCustom = A4($author$project$Main$calcOCustom, model.H, model.H.O, numeratorVal, denominator.j);
+				var sCustom = A4($author$project$Main$calcSCustom, model.J, model.J.q, numeratorVal, denominator.j);
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{
-							p: _Utils_update(
+							z: _Utils_update(
 								denominator,
-								{c: denominatorError}),
-							o: {c: newInputError, m: newInputNumerator, f: numeratorVal},
-							u: oCustom,
-							v: sCustom,
-							T: newStatPercent
+								{d: denominatorError}),
+							x: {d: newInputError, v: newInputNumerator, j: numeratorVal},
+							H: oCustom,
+							J: sCustom,
+							au: newStatPercent
 						}),
 					$elm$core$Platform$Cmd$none);
 			case 1:
 				var newNumber = msg.a;
-				var numerator = model.o;
-				var newInputError = A2($author$project$Main$getDenominatorError, newNumber, numerator.f);
+				var numerator = model.x;
+				var newInputError = A2($author$project$Main$getDenominatorError, newNumber, numerator.j);
 				var newInputDenominator = newNumber;
 				var denominatorVal = function () {
 					var _v2 = $elm$core$String$toFloat(newNumber);
@@ -5393,21 +5393,21 @@ var $author$project$Main$update = F2(
 						return -1;
 					}
 				}();
-				var newStatPercent = $elm$core$String$fromFloat((numerator.f / denominatorVal) * 100);
-				var numeratorError = A2($author$project$Main$getNumeratorError, numerator.m, denominatorVal);
-				var oCustom = A4($author$project$Main$calcOCustom, model.u, model.u.y, numerator.f, denominatorVal);
-				var sCustom = A4($author$project$Main$calcSCustom, model.v, model.v.k, numerator.f, denominatorVal);
+				var newStatPercent = $elm$core$String$fromFloat((numerator.j / denominatorVal) * 100);
+				var numeratorError = A2($author$project$Main$getNumeratorError, numerator.v, denominatorVal);
+				var oCustom = A4($author$project$Main$calcOCustom, model.H, model.H.O, numerator.j, denominatorVal);
+				var sCustom = A4($author$project$Main$calcSCustom, model.J, model.J.q, numerator.j, denominatorVal);
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{
-							p: {c: newInputError, m: newInputDenominator, f: denominatorVal},
-							o: _Utils_update(
+							z: {d: newInputError, v: newInputDenominator, j: denominatorVal},
+							x: _Utils_update(
 								numerator,
-								{c: numeratorError}),
-							u: oCustom,
-							v: sCustom,
-							T: newStatPercent
+								{d: numeratorError}),
+							H: oCustom,
+							J: sCustom,
+							au: newStatPercent
 						}),
 					$elm$core$Platform$Cmd$none);
 			case 2:
@@ -5421,22 +5421,22 @@ var $author$project$Main$update = F2(
 						return -1;
 					}
 				}();
-				var numerator = model.o;
+				var numerator = model.x;
 				var newInputPercent = newNumber;
 				var newInputError = $author$project$Main$getPercentError(newNumber);
-				var denominator = model.p;
+				var denominator = model.z;
 				var chance = percentVal / 100;
-				var oCustom = A4($author$project$Main$calcOCustom, model.u, chance, numerator.f, denominator.f);
+				var oCustom = A4($author$project$Main$calcOCustom, model.H, chance, numerator.j, denominator.j);
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{
-							u: _Utils_update(
+							H: _Utils_update(
 								oCustom,
 								{
-									n: $author$project$Main$percentToTitle(percentVal)
+									w: $author$project$Main$percentToTitle(percentVal)
 								}),
-							D: {c: newInputError, m: newInputPercent, f: percentVal}
+							U: {d: newInputError, v: newInputPercent, j: percentVal}
 						}),
 					$elm$core$Platform$Cmd$none);
 			default:
@@ -5450,21 +5450,21 @@ var $author$project$Main$update = F2(
 						return -1;
 					}
 				}();
-				var numerator = model.o;
+				var numerator = model.x;
 				var newInputSamples = newNumber;
 				var newInputError = $author$project$Main$getSamplesError(newNumber);
-				var denominator = model.p;
-				var sCustom = A4($author$project$Main$calcSCustom, model.v, samplesVal, numerator.f, denominator.f);
+				var denominator = model.z;
+				var sCustom = A4($author$project$Main$calcSCustom, model.J, samplesVal, numerator.j, denominator.j);
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{
-							v: _Utils_update(
+							J: _Utils_update(
 								sCustom,
 								{
-									n: $author$project$Main$samplesToTitle(samplesVal)
+									w: $author$project$Main$samplesToTitle(samplesVal)
 								}),
-							k: {c: newInputError, m: newInputSamples, f: samplesVal}
+							q: {d: newInputError, v: newInputSamples, j: samplesVal}
 						}),
 					$elm$core$Platform$Cmd$none);
 		}
@@ -5544,20 +5544,20 @@ var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $author$project$Main$fixedChanceView = F2(
 	function (occ, inputsGood) {
-		var _v0 = occ.c;
+		var _v0 = occ.d;
 		if (!_v0.$) {
 			if (inputsGood) {
 				var valText = function () {
-					var _v3 = occ.S;
+					var _v3 = occ.at;
 					if (_v3 === '1') {
 						return 'sample';
 					} else {
 						return 'samples';
 					}
 				}();
-				var showDecimal = !occ.R;
+				var showDecimal = !occ.as;
 				var precisionText = function () {
-					var _v2 = occ.R;
+					var _v2 = occ.as;
 					if (_v2) {
 						return 'exactly to reach a';
 					} else {
@@ -5590,7 +5590,7 @@ var $author$project$Main$fixedChanceView = F2(
 								]),
 							_List_fromArray(
 								[
-									$elm$html$Html$text(occ.n)
+									$elm$html$Html$text(occ.w)
 								])),
 							A2(
 							$elm$html$Html$p,
@@ -5600,7 +5600,7 @@ var $author$project$Main$fixedChanceView = F2(
 								]),
 							_List_fromArray(
 								[
-									$elm$html$Html$text(occ.S)
+									$elm$html$Html$text(occ.at)
 								])),
 							A2(
 							$elm$html$Html$p,
@@ -5610,7 +5610,7 @@ var $author$project$Main$fixedChanceView = F2(
 								]),
 							_List_fromArray(
 								[
-									$elm$html$Html$text(' ' + (valText + (' ' + (precisionText + (' ' + (occ.n + ' chance of at least one occurrence '))))))
+									$elm$html$Html$text(' ' + (valText + (' ' + (precisionText + (' ' + (occ.w + ' chance of at least one occurrence '))))))
 								])),
 							showDecimal ? A2(
 							$elm$html$Html$p,
@@ -5620,7 +5620,7 @@ var $author$project$Main$fixedChanceView = F2(
 								]),
 							_List_fromArray(
 								[
-									$elm$html$Html$text(occ.k)
+									$elm$html$Html$text(occ.q)
 								])) : A2($elm$html$Html$p, _List_Nil, _List_Nil)
 						]));
 			} else {
@@ -5651,7 +5651,7 @@ var $author$project$Main$fixedChanceView = F2(
 								]),
 							_List_fromArray(
 								[
-									$elm$html$Html$text(occ.n)
+									$elm$html$Html$text(occ.w)
 								])),
 							A2(
 							$elm$html$Html$p,
@@ -5694,7 +5694,7 @@ var $author$project$Main$fixedChanceView = F2(
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text(occ.n)
+								$elm$html$Html$text(occ.w)
 							])),
 						A2(
 						$elm$html$Html$p,
@@ -5716,12 +5716,12 @@ var $author$project$Main$fixedSamplesErr = F3(
 var $author$project$Main$fixedSamplesView = F2(
 	function (occ, inputsGood) {
 		if (inputsGood) {
-			var _v1 = occ.c;
+			var _v1 = occ.d;
 			if (!_v1.$) {
 				var valText = 'chance';
-				var showDecimal = !occ.O;
+				var showDecimal = !occ.am;
 				var precisionText = function () {
-					var _v2 = occ.O;
+					var _v2 = occ.am;
 					if (_v2) {
 						return 'exactly for a sample size of';
 					} else {
@@ -5754,7 +5754,7 @@ var $author$project$Main$fixedSamplesView = F2(
 								]),
 							_List_fromArray(
 								[
-									$elm$html$Html$text(occ.n)
+									$elm$html$Html$text(occ.w)
 								])),
 							showDecimal ? A2(
 							$elm$html$Html$p,
@@ -5764,7 +5764,7 @@ var $author$project$Main$fixedSamplesView = F2(
 								]),
 							_List_fromArray(
 								[
-									$elm$html$Html$text('~' + (occ.P + '%'))
+									$elm$html$Html$text('~' + (occ.an + '%'))
 								])) : A2(
 							$elm$html$Html$p,
 							_List_fromArray(
@@ -5773,7 +5773,7 @@ var $author$project$Main$fixedSamplesView = F2(
 								]),
 							_List_fromArray(
 								[
-									$elm$html$Html$text(occ.P + '%')
+									$elm$html$Html$text(occ.an + '%')
 								])),
 							A2(
 							$elm$html$Html$p,
@@ -5783,7 +5783,7 @@ var $author$project$Main$fixedSamplesView = F2(
 								]),
 							_List_fromArray(
 								[
-									$elm$html$Html$text(' ' + (valText + (' ' + (precisionText + (' ' + (occ.n + ' to have at least one occurrence '))))))
+									$elm$html$Html$text(' ' + (valText + (' ' + (precisionText + (' ' + (occ.w + ' to have at least one occurrence '))))))
 								])),
 							showDecimal ? A2(
 							$elm$html$Html$p,
@@ -5793,7 +5793,7 @@ var $author$project$Main$fixedSamplesView = F2(
 								]),
 							_List_fromArray(
 								[
-									$elm$html$Html$text(occ.y + '%')
+									$elm$html$Html$text(occ.O + '%')
 								])) : A2($elm$html$Html$p, _List_Nil, _List_Nil)
 						]));
 			} else {
@@ -5825,7 +5825,7 @@ var $author$project$Main$fixedSamplesView = F2(
 								]),
 							_List_fromArray(
 								[
-									$elm$html$Html$text(occ.n)
+									$elm$html$Html$text(occ.w)
 								])),
 							A2(
 							$elm$html$Html$p,
@@ -5867,7 +5867,7 @@ var $author$project$Main$fixedSamplesView = F2(
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text(occ.n)
+								$elm$html$Html$text(occ.w)
 							])),
 						A2(
 						$elm$html$Html$p,
@@ -6039,7 +6039,7 @@ var $author$project$Main$view = function (model) {
 							[
 								$elm$html$Html$Attributes$class('item input-item'),
 								$elm$html$Html$Attributes$class(
-								A4($author$project$Main$superAllGoodCss, model.o.c, model.p.c, model.D.c, model.k.c))
+								A4($author$project$Main$superAllGoodCss, model.x.d, model.z.d, model.U.d, model.q.d))
 							]),
 						_List_fromArray(
 							[
@@ -6076,12 +6076,12 @@ var $author$project$Main$view = function (model) {
 										_List_fromArray(
 											[
 												$elm$html$Html$Attributes$class(
-												$author$project$Main$errColorCss(model.o.c)),
+												$author$project$Main$errColorCss(model.x.d)),
 												$elm$html$Html$Attributes$min('0'),
 												$elm$html$Html$Attributes$type_('number'),
 												$elm$html$Html$Attributes$autofocus(true),
 												$elm$html$Html$Attributes$placeholder('Enter a number...'),
-												$elm$html$Html$Attributes$value(model.o.m),
+												$elm$html$Html$Attributes$value(model.x.v),
 												$elm$html$Html$Events$onInput($author$project$Main$ChangeNumerator)
 											]),
 										_List_Nil),
@@ -6094,7 +6094,7 @@ var $author$project$Main$view = function (model) {
 										_List_fromArray(
 											[
 												$elm$html$Html$text(
-												$author$project$Main$numeratorErrorToMessage(model.o.c))
+												$author$project$Main$numeratorErrorToMessage(model.x.d))
 											])),
 										A2(
 										$elm$html$Html$p,
@@ -6108,11 +6108,11 @@ var $author$project$Main$view = function (model) {
 										_List_fromArray(
 											[
 												$elm$html$Html$Attributes$class(
-												$author$project$Main$errColorCss(model.p.c)),
+												$author$project$Main$errColorCss(model.z.d)),
 												$elm$html$Html$Attributes$min('0'),
 												$elm$html$Html$Attributes$type_('number'),
 												$elm$html$Html$Attributes$placeholder('Enter a number...'),
-												$elm$html$Html$Attributes$value(model.p.m),
+												$elm$html$Html$Attributes$value(model.z.v),
 												$elm$html$Html$Events$onInput($author$project$Main$ChangeDenominator)
 											]),
 										_List_Nil),
@@ -6125,9 +6125,9 @@ var $author$project$Main$view = function (model) {
 										_List_fromArray(
 											[
 												$elm$html$Html$text(
-												$author$project$Main$denominatorErrorToMessage(model.p.c))
+												$author$project$Main$denominatorErrorToMessage(model.z.d))
 											])),
-										A2($author$project$Main$percentView, model.T, model.o.c)
+										A2($author$project$Main$percentView, model.au, model.x.d)
 									])),
 								A2(
 								$elm$html$Html$div,
@@ -6152,11 +6152,11 @@ var $author$project$Main$view = function (model) {
 										_List_fromArray(
 											[
 												$elm$html$Html$Attributes$class(
-												$author$project$Main$errColorCss(model.D.c)),
+												$author$project$Main$errColorCss(model.U.d)),
 												$elm$html$Html$Attributes$min('0'),
 												$elm$html$Html$Attributes$type_('number'),
 												$elm$html$Html$Attributes$placeholder('Enter a number...'),
-												$elm$html$Html$Attributes$value(model.D.m),
+												$elm$html$Html$Attributes$value(model.U.v),
 												$elm$html$Html$Events$onInput($author$project$Main$ChangePercent)
 											]),
 										_List_Nil),
@@ -6169,7 +6169,7 @@ var $author$project$Main$view = function (model) {
 										_List_fromArray(
 											[
 												$elm$html$Html$text(
-												$author$project$Main$percentErrorToMessage(model.D.c))
+												$author$project$Main$percentErrorToMessage(model.U.d))
 											]))
 									])),
 								A2(
@@ -6195,11 +6195,11 @@ var $author$project$Main$view = function (model) {
 										_List_fromArray(
 											[
 												$elm$html$Html$Attributes$class(
-												$author$project$Main$errColorCss(model.k.c)),
+												$author$project$Main$errColorCss(model.q.d)),
 												$elm$html$Html$Attributes$min('1'),
 												$elm$html$Html$Attributes$type_('number'),
 												$elm$html$Html$Attributes$placeholder('Enter a number...'),
-												$elm$html$Html$Attributes$value(model.k.m),
+												$elm$html$Html$Attributes$value(model.q.v),
 												$elm$html$Html$Events$onInput($author$project$Main$ChangeSamples)
 											]),
 										_List_Nil),
@@ -6212,7 +6212,7 @@ var $author$project$Main$view = function (model) {
 										_List_fromArray(
 											[
 												$elm$html$Html$text(
-												$author$project$Main$samplesErrorToMessage(model.k.c))
+												$author$project$Main$samplesErrorToMessage(model.q.d))
 											]))
 									]))
 							])),
@@ -6234,8 +6234,8 @@ var $author$project$Main$view = function (model) {
 									[
 										A2(
 										$author$project$Main$fixedChanceView,
-										model.u,
-										A3($author$project$Main$fixedChanceErr, model.o.c, model.p.c, model.D.c))
+										model.H,
+										A3($author$project$Main$fixedChanceErr, model.x.d, model.z.d, model.U.d))
 									])),
 								A2(
 								$elm$html$Html$div,
@@ -6247,14 +6247,14 @@ var $author$project$Main$view = function (model) {
 									[
 										A2(
 										$author$project$Main$fixedSamplesView,
-										model.v,
-										A3($author$project$Main$fixedSamplesErr, model.o.c, model.p.c, model.k.c))
+										model.J,
+										A3($author$project$Main$fixedSamplesErr, model.x.d, model.z.d, model.q.d))
 									]))
 							]))
 					]))
 			]));
 };
 var $author$project$Main$main = $elm$browser$Browser$element(
-	{a1: $author$project$Main$init, a8: $author$project$Main$subscriptions, a9: $author$project$Main$update, ba: $author$project$Main$view});
+	{cd: $author$project$Main$init, cB: $author$project$Main$subscriptions, cF: $author$project$Main$update, cG: $author$project$Main$view});
 _Platform_export({'Main':{'init':$author$project$Main$main(
 	$elm$json$Json$Decode$succeed(0))(0)}});}(this));

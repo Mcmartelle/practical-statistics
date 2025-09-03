@@ -1,0 +1,19 @@
+let
+  pkgs = import (fetchTarball("https://github.com/NixOS/nixpkgs/archive/cca4f8e59e9479ced4f02f33530be367220d5826.tar.gz")) {};
+in
+pkgs.mkShell {
+  packages = [
+    pkgs.caddy
+    pkgs.elmPackages.elm
+    pkgs.elmPackages.elm-language-server
+    pkgs.elmPackages.elm-format
+    pkgs.elmPackages.elm-optimize-level-2
+    pkgs.elmPackages.elm-review
+    pkgs.elmPackages.elm-test
+    pkgs.elmPackages.elm-json
+    pkgs.nodePackages.uglify-js
+    pkgs.nodePackages.elm-test
+    pkgs.nushell
+  ];
+}
+
