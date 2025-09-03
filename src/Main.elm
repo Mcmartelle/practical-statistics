@@ -1,4 +1,4 @@
-module Main exposing (Model, Msg(..), init, main, subscriptions, update, view)
+module Main exposing (Model, Msg(..), init, main, subscriptions, update, view, samplesToChance, chanceToSamples)
 
 import Browser
 import Html exposing (..)
