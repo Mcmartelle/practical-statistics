@@ -46,7 +46,7 @@ input {
   padding: 0.4em 0.6em;
   font-size: 1em;
   line-height: 1.2em;
-  width: 18em;
+  width: 14em;
   border: 1px solid;
   border-color: rgba(255, 255, 255, 0.15);
   border-radius: 0.4rem;
@@ -200,7 +200,7 @@ h3 {
 }
 
 .item.output-item {
-  max-width: 20em;
+  max-width: 21em;
 }
 
 .item.input-item.bad-input {
